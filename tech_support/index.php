@@ -1,8 +1,9 @@
 <?php include 'view/header.php'; ?>
 <main>
     <nav>
-        
+
     <h2>Administrators</h2>
+        <h2>test</h2>
     <ul>
         <li><a href="product_manager">Manage Products</a></li>
         <li><a href="under_construction.php">Manage Technicians</a></li>
@@ -23,5 +24,5 @@
     </ul>
     
     </nav>
-</section>
+</main>
 <?php include 'view/footer.php'; ?>
