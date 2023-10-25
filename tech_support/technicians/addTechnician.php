@@ -21,9 +21,18 @@
         else {
             $test = test_input($value); # this function will return true if the input is valid
             if ($test === true) {
-                $person_data[] = $value;
+                if ($key === 'phone'){
+                    $new_number = '';
+                    $num = str_split($value);
+                    $new_number = $num[0].$num[1].$num[2]."-".$num[3].$num[4].$num[5]."-".$num[6].$num[7].$num[8].$num[9];
+                    $person_data[] = $new_number;
+                }
+                else {
+                    $person_data[] = $value;
+                }
             }
             else {
+                echo "<h4>Oh, no</h4>";
                 echo "<h4 style='color: red;' id='aligned'>".$test."</h4>";
             }
         }
@@ -68,9 +77,10 @@
         <input type='email' id='email' name='email'><br><br>
 
         <label for='phone'>Phone:</label>
-        <input type='tel' id='phone' name='phone'><br><br>
+        <input type="tel" id="phone" name="phone" maxlength="10" pattern="\d{10}" title="10-digit numbers only"><br><br>
 
-        <label for='password'>Password:</label>
+
+    <label for='password'>Password:</label>
         <input type='password' id='password' name='password'><br><br>
 
         <input type='submit' value='Add Technician' style="margin-left: 145px">
