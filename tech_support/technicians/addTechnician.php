@@ -10,9 +10,54 @@
 </head>
 <body>
 <?php include '../view/header.php'; ?>
+<?php
+    require '../errors/testInput.php';
+    $person_data = []; # set array
+    $con = null;
+    foreach ($_POST as $key => $value) { # key = input name # value = input value
+        if ($value === "") { # if no value assigned, enter
+            echo "<h4 style='color: red;' id='aligned'>".'No '.$key.' inputed'."</h4>"; # error output
+        }
+        else {
+            $test = test_input($value); # this function will return true if the input is valid
+            if ($test === true) {
+                $person_data[] = $value;
+            }
+            else {
+                echo "<h4 style='color: red;' id='aligned'>".$test."</h4>";
+            }
+        }
+    }
+    if (sizeof($person_data) == 5) { # this is to prevent the sql from running if there is an empty field
+        require '../model/database.php';
+        $sql = array(
+            "USE bbabikian;",
+            "INSERT INTO technicians (firstName, lastName, email, phone, password) 
+             VALUES ('$person_data[0]', 
+                     '$person_data[1]', 
+                     '$person_data[2]', 
+                     '$person_data[3]', 
+                     '$person_data[4]');");
+        
+            try{
+                for ($i = 0; $i<sizeof($sql); $i++){
+                    $query = $sql[$i];
+                    mysqli_query($con, $query);
+                }
+
+            } catch(Exception $e) { echo "<h4 style='color: red;' id='aligned'>" . "Error: " .$e->getMessage() .
+                "<br/>Line" . $e->getLine() . "</h4>";}
+            finally { 
+                mysqli_close($con);
+            }
+    }
+    
+
+
+?>
 <main id='aligned'>
 <h1>Add Technician</h1>
-<form action='databaseAddTechnician.php' method='post' id='aligned'>
+<form action='addTechnician.php' method='post' id='aligned'>
         <label for='first_name'>First Name:</label>
         <input type='text' id='first_name' name='first_name'><br><br>
 
