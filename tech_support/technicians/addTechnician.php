@@ -16,7 +16,7 @@
     $con = null;
     foreach ($_POST as $key => $value) { # key = input name # value = input value
         if ($value === "") { # if no value assigned, enter
-            echo "<h4 style='color: red;' id='aligned'>".'No '.$key.' inputed'."</h4>"; # error output
+            echo "<h4 style='color: red;' id='aligned'>".'No '.$key.' inputted'."</h4>"; # error output
         }
         else {
             $test = test_input($value); # this function will return true if the input is valid
@@ -56,12 +56,12 @@
 
             } catch(Exception $e) { echo "<h4 style='color: red;' id='aligned'>" . "Error: " .$e->getMessage() .
                 "<br/>Line" . $e->getLine() . "</h4>";}
-            finally { 
+            finally {
+                header("Location: technician.php");
                 mysqli_close($con);
+                exit();
             }
     }
-    
-
 
 ?>
 <main id='aligned'>

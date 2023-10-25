@@ -30,7 +30,7 @@ echo "<table id='aligned'>";
 echo "<thead>";
 echo "<tr>";
 while ($line = mysqli_fetch_field($result)) {
-    echo "<th>{$line->name}</th>";
+    echo "<th>$line->name</th>";
 }
 
 echo "</tr>";
