@@ -6,11 +6,16 @@ $phone = $_POST['phone'];
 $password = $_POST['password'];
 $errors = "";
 
+$data = [];
+
 foreach ($_POST as $key => $val) {
-    if ($val == "") {
+    if ($val == "") { # exception
         $errors .= 'No ' . $key . ' inputted. ';
     }
 }
+
+
+
 echo $errors;
 if ($errors != "") {
     $error = "<h1>No First Name Inputted</h1>";
