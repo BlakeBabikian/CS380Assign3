@@ -32,7 +32,6 @@
                 }
             }
             else {
-                echo "<h4>Oh, no</h4>";
                 echo "<h4 style='color: red;' id='aligned'>".$test."</h4>";
             }
         }
@@ -53,11 +52,10 @@
                     $query = $sql[$i];
                     mysqli_query($con, $query);
                 }
-
+            header("Location: technician.php");
             } catch(Exception $e) { echo "<h4 style='color: red;' id='aligned'>" . "Error: " .$e->getMessage() .
                 "<br/>Line" . $e->getLine() . "</h4>";}
             finally {
-                header("Location: technician.php");
                 mysqli_close($con);
                 exit();
             }
