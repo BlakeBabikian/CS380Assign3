@@ -10,13 +10,13 @@
 </head>
 <body>
 <?php include '../view/header.php'; ?>
-<?php
+<?php # header("Location: error.php?code=$code&message=$message");
     require '../errors/testInput.php';
     $person_data = []; # set array
     $con = null;
     foreach ($_POST as $key => $value) { # key = input name # value = input value
         if ($value === "") { # if no value assigned, enter
-            echo "<h4 style='color: red;' id='aligned'>".'No '.$key.' inputted'."</h4>"; # error output
+            echo "<p style='color: red;' id='aligned'>".'No '.$key.' inputted'."</p>";
         }
         else {
             $test = test_input($value); # this function will return true if the input is valid
@@ -32,7 +32,7 @@
                 }
             }
             else {
-                echo "<h4 style='color: red;' id='aligned'>".$test."</h4>";
+                header("Location: ../errors/error.php?error=$test");
             }
         }
     }
@@ -53,8 +53,9 @@
                     mysqli_query($con, $query);
                 }
             header("Location: technician.php");
-            } catch(Exception $e) { echo "<h4 style='color: red;' id='aligned'>" . "Error: " .$e->getMessage() .
-                "<br/>Line" . $e->getLine() . "</h4>";}
+            } catch(Exception $e) { 
+                $error = "Error: ".$e->getMessage();
+                header("Location: ../errors/error.php?error=$error");}
             finally {
                 mysqli_close($con);
                 exit();
