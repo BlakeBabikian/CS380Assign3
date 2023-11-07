@@ -10,8 +10,8 @@
 </head>
 <body>
 <?php include '../view/header.php'; ?>
+<h1>Register Product</h1>
 <main id="aligned">
-    <h1>Register Product</h1>
     <p>You must sign in to register a product:</p>
     <form action="registerProduct.php" method="post" id="aligned">
         <label for="email" style="width: auto">Email: </label>
