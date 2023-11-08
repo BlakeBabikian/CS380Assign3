@@ -75,7 +75,7 @@ if (sizeof($product_data) == 5) { # this is to prevent the sql from running if t
 </main>
 <nav>
     <ul>
-        <li><a href="./products.php">View Products List</a></li>
+        <li><a href="products.php">View Products List</a></li>
     </ul>
 </nav>
 <?php include '../view/footer.php'; ?>
