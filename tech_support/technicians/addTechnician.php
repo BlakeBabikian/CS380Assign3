@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Add Technician</title>
@@ -16,29 +16,28 @@
     $con = null;
     foreach ($_POST as $key => $value) { # key = input name # value = input value
         if ($value === "") { # if no value assigned, enter
-            echo "<p style='color: red;' id='aligned'>".'No '.$key.' inputted'."</p>";
-        }
+            echo "<p style='color: red;' id='aligned'>".'No '.$key.' inputted'."</p>";} # display message
+
         else {
             $test = test_input($value); # this function will return true if the input is valid
-            if ($test === true) {
-                if ($key === 'phone'){
-                    $new_number = '';
-                    $num = str_split($value);
+            if ($test === true) { # enter if no html injection
+                if ($key === 'phone'){ # enter if the value in post is for phone
+                    $new_number = ''; # set empty string
+                    $num = str_split($value); # split the string by digit
                     $new_number = $num[0].$num[1].$num[2]."-".$num[3].$num[4].$num[5]."-".$num[6].$num[7].$num[8].$num[9];
-                    $person_data[] = $new_number;
-                }
+                    $person_data[] = $new_number;} # add formatted number to array
+
                 else {
-                    $person_data[] = $value;
-                }
+                    $person_data[] = $value;} # add data to array
+
             }
             else {
-                header("Location: ../errors/error.php?error=$test");
-            }
+                header("Location: ../errors/error.php?error=$test");} # redirect to error page with error message
         }
     }
     if (sizeof($person_data) == 5) { # this is to prevent the sql from running if there is an empty field
         require '../model/database.php';
-        $sql = array(
+        $sql = array( # array with sql statements
             "USE bbabikian;",
             "INSERT INTO technicians (firstName, lastName, email, phone, password) 
              VALUES ('$person_data[0]', 
@@ -48,18 +47,19 @@
                      '$person_data[4]');");
         
             try{
-                for ($i = 0; $i<sizeof($sql); $i++){
-                    $query = $sql[$i];
-                    mysqli_query($con, $query);
-                }
+                for ($i = 0; $i<sizeof($sql); $i++){ # go through the array of sql statements
+                    $query = $sql[$i]; # get sql statement
+                    mysqli_query($con, $query);} # run query
+
             header("Location: technician.php");
+
             } catch(Exception $e) { 
-                $error = "Error: ".$e->getMessage();
-                header("Location: ../errors/error.php?error=$error");}
+                $error = "Error: ".$e->getMessage(); # set message
+                header("Location: ../errors/error.php?error=$error");} # redirect to error page with error message
+
             finally {
-                mysqli_close($con);
-                exit();
-            }
+                mysqli_close($con); # close connection
+                exit();}
     }
 
 ?>
