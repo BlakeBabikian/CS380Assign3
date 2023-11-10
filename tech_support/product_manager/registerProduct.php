@@ -11,11 +11,13 @@
 </head>
 <?php include '../view/header.php'; ?>
 <body>
+<h1 style='margin-left: 20px'>Register Product</h1>
+<main id="aligned"
 <?php
 $con = null;
 require '../model/database.php';
 $email = $_POST['email']; # set email to email in post variables
-echo "<h1>Register Product:</h1>"; # header
+
 if (! empty($email)) { # ensure that a email has been entered
     $query = "SELECT * FROM customers WHERE email = '$email'"; # query
     $result = mysqli_query($con, $query) or die('Query failed: ' . mysqli_errno($con)); # run query
@@ -53,6 +55,7 @@ if (! empty($email)) { # ensure that a email has been entered
         header("Location: ../errors/error.php?error=$error");} # redirect to error page with error message
 }
 ?>
+</body>
 </body>
 <?php include '../view/footer.php'; ?>
 </html>

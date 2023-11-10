@@ -11,6 +11,7 @@
 </head>
 <body>
 <?php include '../view/header.php'; ?>
+<h1 style="margin-left: 20px">Customer Information</h1>
 <?php
 $con = null;
 require '../model/database.php';

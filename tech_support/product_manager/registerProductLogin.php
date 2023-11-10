@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php include '../view/header.php'; ?>
-<h1>Register Product</h1>
+<h1 style="margin-left: 20px">Register Product Login</h1>
 <main id="aligned"> 
     <p>You must sign in to register a product:</p>
     <form action="registerProduct.php" method="post" id="aligned">

@@ -11,9 +11,10 @@
 </head>
 <body>
 <?php include '../view/header.php'; ?>
+<h1>Register Product:</h1>
+<main id="aligned">
 <?php
 $con = null;
-echo "<h1>Register Product:</h1>"; # heading
 if (!empty($_POST['Register']) && !empty($_POST['product'])) { # ensure submit button has been hit, and select box option selected
     $product = $_POST['product']; # get the product code from post variables
     $customerID = $_POST['customerID']; # get the customer id from post variables
@@ -42,6 +43,7 @@ if (!empty($_POST['Register']) && !empty($_POST['product'])) { # ensure submit b
         mysqli_close($con);} # close connection
 }
 ?>
+</main>
 <?php include '../view/footer.php'; ?>
 </body>
 </html>
