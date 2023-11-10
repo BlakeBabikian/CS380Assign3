@@ -11,7 +11,6 @@
 </head>
 <body>
 <?php include '../view/header.php'; ?>
-<h1 style="margin-left: 20px">Customer Information</h1>
 <?php
 $con = null;
 require '../model/database.php';
@@ -20,7 +19,6 @@ $customer = [];
 $successMessage = "";
 session_start();
 
-if ($_POST['customerID'] != '' || true) {
     foreach ($_POST as $id => $value) {
         if ($value == "Select") {
             $query = "SELECT * FROM customers WHERE customerID = '$id';";
@@ -67,10 +65,7 @@ if ($_POST['customerID'] != '' || true) {
         }
 
     }
-} elseif (isset($_SESSION['customer'])) {
-    // Load customer details from session
-    $customer = $_SESSION['customer'];
-}
+
 
 // Fetch available country codes from the countries table
 $countryQuery = "SELECT countryCode, countryName FROM countries;";
