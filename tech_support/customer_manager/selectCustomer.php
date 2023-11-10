@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Manage Customers</title>
@@ -7,6 +7,7 @@
     <meta name="keywords" content="keywords, for, your, page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
 </head>
 <body>
 <?php include '../view/header.php'; ?>
@@ -46,7 +47,7 @@ echo "</thead>";
 echo "</form>";
 
 echo "<tbody>";
-echo "<form id='viewCustomer' action='viewCustomer.php' method='post'>";
+echo "<form id='viewCustomer' action='editCustomer.php' method='post'>";
 while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     echo "<tr>"; // Open html table row
     foreach ($line as $field_name => $field_value) { // Go through data in sql row
