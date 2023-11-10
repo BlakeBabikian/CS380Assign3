@@ -7,6 +7,7 @@
     <meta name="keywords" content="keywords, for, your, page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="icon" type="image/ico" href="images/favicon.ico">
 </head>
 <?php include 'view/header.php'; ?>
 <!-- Testing -->
@@ -16,7 +17,7 @@
 
     <h2>Administrators</h2>
     <ul>
-        <li><a href="under_construction.php">Manage Products</a></li>
+        <li><a href="product_manager/products.php">Manage Products</a></li>
         <li><a href="technicians/technician.php">Manage Technicians</a></li>
         <li><a href="under_construction.php">Manage Customers</a></li>
         <li><a href="under_construction.php">Create Incident</a></li>
