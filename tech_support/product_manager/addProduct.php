@@ -29,7 +29,7 @@ foreach ($_POST as $key => $value) { # key = input name # value = input value
         }
     }
 }
-if (sizeof($product_data) == 5) { # this is to prevent the sql from running if there is an empty field
+if (sizeof($product_data) == 4) { # this is to prevent the sql from running if there is an empty field
     require '../model/database.php';
     $sql = array(
         "USE bbabikian;", # Change to user-name!
@@ -45,7 +45,7 @@ if (sizeof($product_data) == 5) { # this is to prevent the sql from running if t
             $query = $sql[$i];
             mysqli_query($con, $query);
         }
-        header("Location: product.php");
+        header("Location: products.php");
     } catch(Exception $e) {
         $error = "Error: ".$e->getMessage();
         header("Location: ../errors/error.php?error=$error");}
