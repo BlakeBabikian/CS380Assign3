@@ -38,19 +38,12 @@
     }
     if (sizeof($person_data) == 5) { # this is to prevent the sql from running if there is an empty field
         require '../model/database.php';
-        $sql = array( # array with sql statements
-            "USE bbabikian;",
-            "INSERT INTO technicians (firstName, lastName, email, phone, password) 
-             VALUES ('$person_data[0]', 
-                     '$person_data[1]', 
-                     '$person_data[2]', 
-                     '$person_data[3]', 
-                     '$person_data[4]');");
-        
             try{
-                for ($i = 0; $i<sizeof($sql); $i++){ # go through the array of sql statements
-                    $query = $sql[$i]; # get sql statement
-                    mysqli_query($con, $query);} # run query
+                $query = mysqli_prepare($con,
+                    "INSERT INTO technicians (firstName, lastName, email, phone, password) VALUES (?,?,?,?,?);");
+                mysqli_stmt_bind_param($query, "sssss",
+                    $person_data[0],$person_data[1], $person_data[2],$person_data[3],$person_data[4]);
+                mysqli_stmt_execute($query);
 
             header("Location: technician.php");
 

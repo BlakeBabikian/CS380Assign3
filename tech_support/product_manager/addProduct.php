@@ -31,20 +31,10 @@ foreach ($_POST as $key => $value) { # key = input name # value = input value
 }
 if (sizeof($product_data) == 4) { # this is to prevent the sql from running if there is an empty field
     require '../model/database.php';
-    $sql = array(
-        "USE bbabikian;", # Change to user-name!
-        "INSERT INTO products (productCode, name, version, releaseDate) 
-             VALUES ('$product_data[0]', 
-                     '$product_data[1]', 
-                     '$product_data[2]', 
-                     '$product_data[3]');");
-
-
-    try{
-        for ($i = 0; $i<sizeof($sql); $i++){
-            $query = $sql[$i];
-            mysqli_query($con, $query);
-        }
+    try {
+        $query = mysqli_prepare($con, "INSERT INTO products (productCode, name, version, releaseDate) VALUES (?, ?, ?, ?);");
+        mysqli_stmt_bind_param($query, "ssds", $product_data[0], $product_data[1], $product_data[2], $product_data[3]);
+        mysqli_stmt_execute($query);
         header("Location: products.php");
     } catch(Exception $e) {
         $error = "Error: ".$e->getMessage();

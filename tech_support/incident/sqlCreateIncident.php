@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register Product SQL</title>
+    <title>Create Incident SQL</title>
     <meta name="description" content="Your page description">
     <meta name="keywords" content="keywords, for, your, page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php include '../view/header.php'; ?>
-<h1>Register Product:</h1>
+<h1>Create Incident</h1>
 <main id="aligned">
 <?php
 $con = null;

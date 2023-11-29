@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register Product</title>
+    <title>Create Incident</title>
     <meta name="description" content="Your page description">
     <meta name="keywords" content="keywords, for, your, page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
 </head>
 <?php include '../view/header.php'; ?>
 <body>
-<h1 style='margin-left: 20px'>Register Product</h1>
+<h1 style='margin-left: 20px'>Create Incident</h1>
 <main id="aligned">
 <?php
 $con = null;
@@ -49,34 +49,37 @@ else {
     $id = $_SESSION['customerID']; # save customer ID for later data entry
     $email = $_SESSION['Email'];} # save customer email for later data entry
 
+
 if ($email != null) { # ensure that an email has been entered
+    echo "<form action='sqlCreateIncident.php' method='post' id='aligned'>"; # Product registration form
     echo "<label for='customer' style='margin-right: 17px'>Customer:</label>";
     echo "<span id='customer'>$first_name $last_name</span><br>"; # format customer name
-    echo "<form action='sqlRegisterProduct.php' method='post' id='aligned'>"; # Product registration form
     echo "<input type='hidden' name='customerID' value='$id'>"; # pass customer ID
     echo "<label for='product' id='aligned'>Product:</label>";
     echo "<select name='product' id='product'>"; # select box of products in database
-
-    $query = "SELECT * FROM products ORDER BY name;"; # query
-
+    $query = "SELECT registrations.productCode, products.name as product_name
+              FROM registrations
+              INNER JOIN products ON registrations.productCode = products.productCode
+              WHERE registrations.customerID = $id;"; # query
     $result = mysqli_query($con, $query) or die('Query failed: ' . mysqli_errno($con)); # run query
-
     $rows = mysqli_num_rows($result); # count records
-    
     if ($rows < 1) { # ensure that the query has returned a workable value
         $error = "Error Loading database"; # set message
         header("Location: ../errors/database_error.php?error_message=$error");} # redirect to error page with error message
-    
     while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) { # go through sql table rows
-        echo '<option value=' . $line ['productCode'] . '>' . $line ['name'] . ' </option>';} # add option to select box
+        echo '<option value=' . $line ['productCode'] . '>' . $line ['product_name'] . ' </option>';} # add option to select box
 
-    echo "</select><br><br>"; # close out select box
+    echo "</select><br>"; # close out select box
+    echo "<label for='Title' style='margin-right: 17px'>Title:</label>";
+    echo "<input type='text' name='Title'><br>";
+    echo "<label for='Description' style='margin-right: 17px'>Description:</label>";
+    echo "<textarea name='Description' style='width: 300px; height: 50px'></textarea><br>";
     echo "<input type='submit' value='Register Product' name='Register' style='margin-left: 145px;'></form><br>"; # submit and end product registration form
     echo "<span>"."You are signed in as ".$email."</span>";
-    echo "<br><form action='logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
+    echo "<br><form action='../product_manager/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
     mysqli_close($con); # close connection
 }
-else header("Location: registerProductLogin.php");
+else header("Location: createIncidentLogin.php");
 ?>
 </main>
 </body>

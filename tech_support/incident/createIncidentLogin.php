@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register Product Login</title>
+    <title>Create Incident Login</title>
     <meta name="description" content="Your page description">
     <meta name="keywords" content="keywords, for, your, page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,13 +14,13 @@
 <?php
     session_start();
     if (! empty($_SESSION["Email"])) {
-        header("Location: registerProduct.php");
+        header("Location: createIncident.php");
     }
 ?>
-<h1 style="margin-left: 20px">Register Product Login</h1>
-<main id="aligned"> 
-    <p>You must sign in to register a product:</p>
-    <form action="registerProduct.php" method="post" id="aligned">
+<main id="aligned">
+    <h1>Get Customer</h1>
+    <p>You must enter the customer's full email address to select the customer.</p>
+    <form action="createIncident.php" method="post">
         <label for="email" style="width: auto">Email: </label>
         <input type="email" id='email' name='email'><input type="submit" name="Login"><br>
     </form>

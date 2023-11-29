@@ -19,8 +19,9 @@ require '../model/database.php';
 if (! empty($_POST)) { # checking that the post variables are not empty
     foreach ($_POST as $id => $value) { # go through post variables looking for techID=>Delete
         if ($value == "Delete") { # if tech was selected to be deleted
-            $query = "DELETE FROM technicians WHERE techID='$id';"; # query
-            $result = mysqli_query($con, $query);} # run query
+            $query = mysqli_prepare($con, "DELETE FROM technicians WHERE techID=?;");
+            mysqli_stmt_bind_param($query, "s", $id);
+            mysqli_stmt_execute($query);} # run query
     }
 }
 
