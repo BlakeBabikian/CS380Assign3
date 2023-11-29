@@ -13,9 +13,7 @@
 <?php include '../view/header.php'; ?>
 <?php
     session_start();
-    if (! empty($_SESSION["Email"])) {
-        header("Location: registerProduct.php");
-    }
+    if (! empty($_SESSION["Email"])) header("Location: registerProduct.php");
 ?>
 <h1 style="margin-left: 20px">Register Product Login</h1>
 <main id="aligned"> 
@@ -24,7 +22,6 @@
         <label for="email" style="width: auto">Email: </label>
         <input type="email" id='email' name='email'><input type="submit" name="Login"><br>
     </form>
-
 </main>
 <?php include '../view/footer.php'; ?>
 </body>

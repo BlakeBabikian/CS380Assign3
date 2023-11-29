@@ -11,9 +11,13 @@
 </head>
 <?php include '../view/header.php'; ?>
 <body>
-<h1 style='margin-left: 20px'>Register Product</h1>
 <main id="aligned">
+<h1>Register Product</h1>
 <?php
+
+error_reporting(0);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 $con = null;
 $email = null;
 if (! empty($_POST)) $email = $_POST['email']; # set email to email in post variables
@@ -34,10 +38,9 @@ if ($email != null) { # enter if coming from login form
                 $last_name = $_SESSION['lastName'] = $line['lastName']; # save customer last name for display
                 $id = $_SESSION['customerID'] = $line['customerID']; # save customer ID for later data entry
                 $_SESSION['Email'] = $email;}
-            else header("Location: registerProductLogin.php");
-        }
+            else header("Location: registerProductLogin.php");}
         catch (Exception $e) {
-            $error = 'Did not recognize customer email.'.$e; # message
+            $error = "Error: ".$e->getMessage();; # message
             header("Location: ../errors/database_error.php?error_message=$error");}
     }
     else header("Location: ../errors/error.php?error=$test");
@@ -56,20 +59,14 @@ if ($email != null) { # ensure that an email has been entered
     echo "<input type='hidden' name='customerID' value='$id'>"; # pass customer ID
     echo "<label for='product' id='aligned'>Product:</label>";
     echo "<select name='product' id='product'>"; # select box of products in database
-
     $query = "SELECT * FROM products ORDER BY name;"; # query
-
     $result = mysqli_query($con, $query) or die('Query failed: ' . mysqli_errno($con)); # run query
-
     $rows = mysqli_num_rows($result); # count records
-    
     if ($rows < 1) { # ensure that the query has returned a workable value
         $error = "Error Loading database"; # set message
         header("Location: ../errors/database_error.php?error_message=$error");} # redirect to error page with error message
-    
     while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) { # go through sql table rows
         echo '<option value=' . $line ['productCode'] . '>' . $line ['name'] . ' </option>';} # add option to select box
-
     echo "</select><br><br>"; # close out select box
     echo "<input type='submit' value='Register Product' name='Register' style='margin-left: 145px;'></form><br>"; # submit and end product registration form
     echo "<span>"."You are signed in as ".$email."</span>";

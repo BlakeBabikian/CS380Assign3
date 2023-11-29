@@ -11,9 +11,13 @@
 </head>
 <?php include '../view/header.php'; ?>
 <body>
-<h1 style='margin-left: 20px'>Create Incident</h1>
 <main id="aligned">
+<h1>Create Incident</h1>
 <?php
+
+error_reporting(0);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 $con = null;
 $email = null;
 if (! empty($_POST)) $email = $_POST['email']; # set email to email in post variables
@@ -34,8 +38,7 @@ if ($email != null) { # enter if coming from login form
                 $last_name = $_SESSION['lastName'] = $line['lastName']; # save customer last name for display
                 $id = $_SESSION['customerID'] = $line['customerID']; # save customer ID for later data entry
                 $_SESSION['Email'] = $email;}
-            else header("Location: registerProductLogin.php");
-        }
+            else header("Location: registerProductLogin.php");}
         catch (Exception $e) {
             $error = 'Did not recognize customer email.'.$e; # message
             header("Location: ../errors/database_error.php?error_message=$error");}
@@ -74,7 +77,7 @@ if ($email != null) { # ensure that an email has been entered
     echo "<input type='text' name='Title'><br>";
     echo "<label for='Description' style='margin-right: 17px'>Description:</label>";
     echo "<textarea name='Description' style='width: 300px; height: 50px'></textarea><br>";
-    echo "<input type='submit' value='Register Product' name='Register' style='margin-left: 145px;'></form><br>"; # submit and end product registration form
+    echo "<input type='submit' value='Create Incident' name='Create' style='margin-left: 145px;'></form><br>"; # submit and end product registration form
     echo "<span>"."You are signed in as ".$email."</span>";
     echo "<br><form action='../product_manager/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
     mysqli_close($con); # close connection

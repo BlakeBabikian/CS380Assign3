@@ -16,8 +16,8 @@
 $con = null;
 require '../model/database.php';
 echo "<main id='aligned'>";
+echo "<h1>Customer Search</h1>";
 echo "<form method='POST' action='selectCustomer.php'>";
-echo "<h2>Customer Search</h2>";
 echo "<label for='search'>Last Name: </label>";
 echo "<input id='search' name='search' type='text' placeholder='Type here'>";
 echo "<input id='submit' type='submit' value='Search'>";

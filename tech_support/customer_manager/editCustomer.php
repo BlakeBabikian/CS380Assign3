@@ -17,7 +17,6 @@ require '../model/database.php';
 
 $customer = [];
 $successMessage = "";
-session_start();
 
     foreach ($_POST as $id => $value) {
         if ($value == "Select") {
