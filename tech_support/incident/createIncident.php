@@ -71,7 +71,6 @@ if ($email != null) { # ensure that an email has been entered
         header("Location: ../errors/database_error.php?error_message=$error");} # redirect to error page with error message
     while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) { # go through sql table rows
         echo '<option value=' . $line ['productCode'] . '>' . $line ['product_name'] . ' </option>';} # add option to select box
-
     echo "</select><br>"; # close out select box
     echo "<label for='Title' style='margin-right: 17px'>Title:</label>";
     echo "<input type='text' name='Title'><br>";
@@ -79,7 +78,7 @@ if ($email != null) { # ensure that an email has been entered
     echo "<textarea name='Description' style='width: 300px; height: 50px'></textarea><br>";
     echo "<input type='submit' value='Create Incident' name='Create' style='margin-left: 145px;'></form><br>"; # submit and end product registration form
     echo "<span>"."You are signed in as ".$email."</span>";
-    echo "<br><form action='../product_manager/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
+    echo "<br><form action='../loginLogout/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
     mysqli_close($con); # close connection
 }
 else header("Location: createIncidentLogin.php");
