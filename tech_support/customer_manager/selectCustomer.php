@@ -24,15 +24,25 @@ echo "<input id='submit' type='submit' value='Search'>";
 echo "<br><h2>Results</h2>";
 if (isset($_POST['search']) && !empty($_POST['search'])) {
     $search = $_POST['search'];
-
-    $query = "SELECT customerID, CONCAT(firstname, ' ', lastname) AS 'Name', email AS 'Email Address', city AS 'City' FROM customers WHERE lastname LIKE '$search%';"; // Set the variable Query
+    try{
+        $query = mysqli_prepare($con, "SELECT customerID, CONCAT(firstname, ' ', lastname) AS 'Name', email AS 'Email Address', city AS 'City' FROM customers WHERE lastname = ?;"); // Set the variable Query
+        mysqli_stmt_bind_param($query, "s", $search);
+        mysqli_stmt_execute($query); # run query
+        $result = mysqli_stmt_get_result($query);
+    } catch (Exception $e) {
+        $error = "Error: ".$e->getMessage(); # set message
+        header("Location: ../errors/database_error.php?error_message=$error");}
 
 } else {
-    // If the search input is empty, retrieve all records
-    $query = "SELECT customerID, CONCAT(firstname, ' ', lastname) AS 'Name', email AS 'Email Address', city AS 'City' FROM customers;";
+    try{
+        // If the search input is empty, retrieve all records
+        $query = "SELECT customerID, CONCAT(firstname, ' ', lastname) AS 'Name', email AS 'Email Address', city AS 'City' FROM customers;";
+        $result = mysqli_query($con, $query) or die('Query failed: ' . mysqli_errno($con)); // Run the query
+    } catch (Exception $e) {
+        $error = "Error: ".$e->getMessage(); # set message
+        header("Location: ../errors/database_error.php?error_message=$error");}
 }
 
-$result = mysqli_query($con, $query) or die('Query failed: ' . mysqli_errno($con)); // Run the query
 echo "<table id='aligned'>";
 echo "<thead>";
 echo "<tr>";
