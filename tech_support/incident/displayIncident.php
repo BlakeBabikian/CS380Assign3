@@ -19,12 +19,12 @@
 
                     <?php
                         $pdo = null;
-                        require '../model/connect.php';
+                        require '../model/database.php';
                         try {
 
 
                         //Might have to change database name
-                        $statement = "USE jbautista;";
+                        $statement = "USE bbabikian;";
                         $stmt = $pdo->query($statement);
 
                         // Perform SQL query to see what's in table

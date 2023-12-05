@@ -1,8 +1,8 @@
 <?php
 $host = 'webdev.bentley.edu';
-$db = 'jbautista';
-$user = 'jbautista';
-$password = '6495';
+$db = 'bbabikian';
+$user = 'bbabikian';
+$password = '3726';
 
 //connection string
 $dsn = "mysql:host=$host;dbname=$db;charset=UTF8";
@@ -19,4 +19,3 @@ try {
 } catch (PDOException $e) {
     echo $e->getMessage(); exit();
 }
-

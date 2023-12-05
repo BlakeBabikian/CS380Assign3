@@ -17,6 +17,7 @@
 
 error_reporting(0);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+require '../errors/testInput.php';
 
 $con = null;
 if (!empty($_POST['Create']) && !empty($_POST['Title']) &&

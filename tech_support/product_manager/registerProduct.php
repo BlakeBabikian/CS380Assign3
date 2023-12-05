@@ -70,7 +70,7 @@ if ($email != null) { # ensure that an email has been entered
     echo "</select><br><br>"; # close out select box
     echo "<input type='submit' value='Register Product' name='Register' style='margin-left: 145px;'></form><br>"; # submit and end product registration form
     echo "<span>"."You are signed in as ".$email."</span>";
-    echo "<br><form action='logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
+    echo "<br><form action='../loginLogout/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
     mysqli_close($con); # close connection
 }
 else header("Location: registerProductLogin.php");
