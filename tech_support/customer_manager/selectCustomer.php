@@ -13,9 +13,16 @@
 <?php include '../view/header.php'; ?>
 
 <?php
+
+error_reporting(0);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $con = null;
 require '../model/database.php';
 echo "<main id='aligned'>";
+echo "<h1>Add a New Customer</h1>";
+echo "<a href='addCustomer.php'>
+        <button>Add Customer</button> 
+      </a><br><br>";
 echo "<h1>Customer Search</h1>";
 echo "<form method='POST' action='selectCustomer.php'>";
 echo "<label for='search'>Last Name: </label>";

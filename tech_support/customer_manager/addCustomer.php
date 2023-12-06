@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Customer</title>
+    <title>Add Customer</title>
     <meta name="description" content="Your page description">
     <meta name="keywords" content="keywords, for, your, page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,88 +16,9 @@
     </style>
 </head>
 <body>
-<?php include '../view/header.php'; ?>
-<?php
-
-error_reporting(0);
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
+<?php include '../view/header.php';
 $con = null;
 require '../model/database.php';
-require '../errors/testInput.php';
-
-
-$customer = [];
-$successMessage = "";
-
-    foreach ($_POST as $id => $value) {
-        if ($value == "Select") {
-            try{
-                $query = mysqli_prepare($con, "SELECT * FROM customers WHERE customerID = ?;");
-                mysqli_stmt_bind_param($query, "s", $id);
-                mysqli_stmt_execute($query); # run query
-                $result = mysqli_stmt_get_result($query);
-                $customer = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            } catch (Exception $e) {
-                $error = "Error: ".$e->getMessage(); # set message
-                header("Location: ../errors/database_error.php?error_message=$error");}
-
-        } elseif ($value == "Update Customer") {
-            $test = test_input($value); # this function will return true if the input is valid
-            if ($test === true) { # enter if no html injection
-                // Get the customer information from the form
-                $id = $_POST['customerID'];
-                $newFirstName = $_POST['first_name'];
-                $newLastName = $_POST['last_name'];
-                $newAddress = $_POST['address'];
-                $newCity = $_POST['city'];
-                $newState = $_POST['state'];
-                $newPostalCode = $_POST['postal_code'];
-                $newCountryCode = $_POST['country_code'];
-                $newPhone = $_POST['phone'];
-                $newEmail = $_POST['email'];
-                $newPassword = $_POST['password'];
-            }
-            else header("Location: ../errors/error.php?error=$test"); # redirect to error page with error message
-                try {
-                $query = mysqli_prepare($con,"UPDATE customers SET 
-                    firstName = ?, 
-                    lastName = ?, 
-                    address = ?, 
-                    city = ?, 
-                    state = ?, 
-                    postalCode = ?, 
-                    countryCode = ?, 
-                    phone = ?, 
-                    email = ?, 
-                    password = ? 
-                    WHERE customerID = ?;");
-                mysqli_stmt_bind_param($query, "sssssssssss",
-                    $newFirstName, $newLastName, $newAddress, $newCity, $newState, $newPostalCode, $newCountryCode, $newPhone, $newEmail, $newPassword, $id);
-                mysqli_stmt_execute($query);
-                $result = mysqli_stmt_get_result($query);
-            } catch (Exception $e) {
-                $error = "Error: ".$e->getMessage(); # set message
-                header("Location: ../errors/database_error.php?error_message=$error");}
-
-            // Check if the update was successful
-            if (mysqli_affected_rows($con) > 0) {
-                $successMessage = "Customer information updated successfully.";
-            } else {
-                $successMessage = "Error updating customer information: " . mysqli_error($con);
-            }
-            echo "<p>$successMessage</p>";
-            try{
-                $query = mysqli_prepare($con,"SELECT * FROM customers WHERE customerID = ?;");
-                mysqli_stmt_bind_param($query, "s", $id);
-                mysqli_stmt_execute($query); # run query
-                $result = mysqli_stmt_get_result($query);
-                $customer = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            } catch (Exception $e) {
-                $error = "Error: ".$e->getMessage(); # set message
-                header("Location: ../errors/database_error.php?error_message=$error");}
-        }
-    }
 
 // Fetch available country codes from the countries table
 $countryQuery = "SELECT countryCode, countryName FROM countries;";
@@ -107,56 +28,55 @@ while ($row = mysqli_fetch_array($countryResult, MYSQLI_ASSOC)) {
     $countries[$row['countryCode']] = $row['countryName'];
 }
 ?>
+
 <main id='aligned'>
-    <h1>View/Update Customer</h1>
-    <form action='editCustomer.php' method='post' id='aligned' onsubmit="return validateForm()">
+    <h1>Add Customer</h1>
+    <form action='addCustomer.php' method='post' id='aligned' onsubmit="return validateForm()">
         <label for='first_name'>First Name:</label>
         <span id="firstRequired" class="required-text"></span>
-        <input type='text' id='first_name' name='first_name' min="1" max="51"  value="<?php echo $customer['firstName']?>" ><br>
+        <input type='text' id='first_name' name='first_name' min="1" max="51"><br>
 
         <label for='last_name'>Last Name:</label>
         <span id="lastRequired" class="required-text"></span>
-        <input type='text' id='last_name' name='last_name' min="1" max="51" value="<?php echo $customer['lastName']?>"><br>
+        <input type='text' id='last_name' name='last_name' min="1" max="51""><br>
 
         <label for='address'>Address:</label>
         <span id="addressRequired" class="required-text"></span>
-        <input type='text' id='address' name='address' min="1" max="51" value="<?php echo $customer['address']?>"><br>
+        <input type='text' id='address' name='address' min="1" max="51"><br>
 
         <label for='city'>City:</label>
         <span id="cityRequired" class="required-text"></span>
-        <input type='text' id='city' name='city' min="1" max="51" value="<?php echo $customer['city']?>"><br>
+        <input type='text' id='city' name='city' min="1" max="51"><br>
 
         <label for='state'>State:</label>
         <span id="stateRequired" class="required-text"></span>
-        <input type='text' id='state' name='state' min="2" max="2" value="<?php echo $customer['state']?>"><br>
+        <input type='text' id='state' name='state' min="2" max="2"><br>
 
         <label for='postal_code'>Postal Code:</label>
         <span id="postalRequired" class="required-text"></span>
-        <input type='text' id='postal_code' name='postal_code' min="1" max="15" value="<?php echo $customer['postalCode']?>"><br>
+        <input type='text' id='postal_code' name='postal_code' min="1" max="15"><br>
 
         <label for='country_code'>Country Code:</label>
         <select id='country_code' name='country_code'>
             <?php
             foreach ($countries as $code => $name) {
-                echo "<option value='$code' " . ($code == $customer['countryCode'] ? 'selected' : '') . ">$name</option>";
+                echo "<option value='$code'>$name</option>";
             }
             ?>
         </select><br>
         <label for='phone'>Phone:</label>
         <span id="phoneRequired" class="required-text"></span>
-        <input type="tel" id="phone" name="phone" pattern="[\(\d{3}\) \d{3}-\d{4}]" value="<?php echo $customer['phone']?>"><br>
+        <input type="tel" id="phone" name="phone" pattern="[\(\d{3}\) \d{3}-\d{4}]"><br>
 
         <label for='email'>Email:</label>
         <span id="emailRequired" class="required-text"></span>
-        <input type='email' id='email' name='email' min="1" max="51"  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" value="<?php echo $customer['email']?>"><br>
+        <input type='email' id='email' name='email' min="1" max="51"  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"><br>
 
         <label for='password'>Password:</label>
         <span id="passwordRequired" class="required-text"></span>
-        <input type='text' id='password' name='password' min="6" max="21" value="<?php echo $customer['password']?>"><br>
+        <input type='text' id='password' name='password' min="6" max="21"><br>
 
-        <input type="hidden" name="customerID" value="<?php echo $customer['customerID']?>">
-
-        <input type='submit' name="submit" value='Update Customer' style="margin-left: 145px">
+        <input type='submit' name="submit" value='Add Customer' style="margin-left: 145px">
     </form>
 
     <script>
@@ -236,5 +156,53 @@ while ($row = mysqli_fetch_array($countryResult, MYSQLI_ASSOC)) {
     <a href='selectCustomer.php'>Search Customers</a>
 </main>
 <?php include '../view/footer.php'; ?>
+<?php
+
+require '../errors/testInput.php';
+$customer_data = []; # set array
+$successMessage = "";
+$con = null;
+
+foreach ($_POST as $key => $value) { # key = input name # value = input value
+    if ($value === "") echo "<p style='color: red;' id='aligned'>".'No '.$key.' inputted'."</p>";
+    else {
+        $test = test_input($value); # this function will return true if the input is valid
+        if ($test === true) $customer_data[] = $value;
+        else header("Location: ../errors/error.php?error=$test");
+    }
+}
+
+error_reporting(0);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+if (sizeof($customer_data) == 10) { # this is to prevent the sql from running if there is an empty field
+    require '../model/database.php';
+    try {
+        $query = mysqli_prepare($con, "INSERT INTO customers 
+            (firstName, lastName, address, city, state, postalCode, countryCode, phone, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        mysqli_stmt_bind_param($query, "ssssssssss", $customer_data[0], $customer_data[1], $customer_data[2], $customer_data[3], $customer_data[4],
+            $customer_data[5], $customer_data[6], $customer_data[7], $customer_data[8], $customer_data[9]);
+        mysqli_stmt_execute($query);
+        header("Location: selectCustomer.php");
+    }
+    catch(Exception $e) {
+        $error = "Error: ".$e->getMessage();
+        header("Location: ../errors/database_error.php?error_message=$error");}
+    finally {
+        mysqli_close($con);
+        exit();
+    }
+}
+
+// Check if the update was successful
+if (mysqli_affected_rows($con) > 0) {
+    $successMessage = "Customer information updated successfully.";
+} else {
+    $successMessage = "Error updating customer information: " . mysqli_error($con);
+}
+echo "<p>$successMessage</p>";
+
+
+?>
 </body>
 </html>
