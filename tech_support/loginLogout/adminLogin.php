@@ -20,7 +20,7 @@ $username = null;
 require '../model/database.php';
 require '../errors/testInput.php';
 session_start();
-if (($_SESSION["ValidAdmin"])) header("Location: ../homePages/adminHome.php");
+if (isset($_SESSION["ValidAdmin"])) header("Location: ../homePages/adminHome.php");
 
 elseif (! empty($_POST['Login'])) {
     $username = $_POST['username'];

@@ -16,9 +16,9 @@
 </header>
 <?php
 session_start();
-if ($_SESSION['ValidTech']) header("Location: homePages/techHome.php");
-elseif ($_SESSION['ValidAdmin']) header("Location: homePages/adminHome.php");
-elseif ($_SESSION['ValidCustomer']) header("Location: homePages/customerHome.php");
+if (isset($_SESSION['ValidTech']) && isset($_SESSION['Email'])) header("Location: homePages/techHome.php");
+elseif (isset($_SESSION['ValidAdmin']) && isset($_SESSION['username'])) header("Location: homePages/adminHome.php");
+elseif (isset($_SESSION['ValidCustomer']) && isset($_SESSION['Email'])) header("Location: homePages/customerHome.php");
 ?>
 <main>
     <nav>

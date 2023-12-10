@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Customer Home</title>
     <meta name="description" content="Your page description">
     <meta name="keywords" content="keywords, for, your, page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
         </ul>
         <?php
         session_start();
-        if ($_SESSION['ValidCustomer'] = true && $_SESSION['Email'] != null) {
+        if ($_SESSION['ValidCustomer'] = true && isset($_SESSION['Email'])) {
             echo "<br><span>"."You are signed in as ".$_SESSION['Email']."</span>";
             echo "<br><form action='../loginLogout/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
         }

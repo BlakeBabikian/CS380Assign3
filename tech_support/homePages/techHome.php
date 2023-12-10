@@ -21,7 +21,7 @@
     error_reporting(0);
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-    if (! empty($_POST)) { 
+    if (! empty($_POST)) {
         foreach ($_POST as $id => $value) { 
             if ($value == "Close") { 
                 try {
@@ -75,7 +75,7 @@
         $error = "Error: ".$e->getMessage(); # set message
         header("Location: ../errors/database_error.php?error_message=$error");}
     
-    if ($_SESSION['ValidTech'] = true && $_SESSION['Email'] != null) {
+    if ($_SESSION['ValidTech'] = true && isset($_SESSION['Email'])) {
         echo "<br><span>"."You are signed in as ".$_SESSION['Email']."</span>";
         echo "<br><form action='../loginLogout/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
     }

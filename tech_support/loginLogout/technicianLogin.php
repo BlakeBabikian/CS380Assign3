@@ -20,7 +20,7 @@ $email = null;
 require '../model/database.php';
 require '../errors/testInput.php';
 session_start();
-if (($_SESSION["ValidTech"])) header("Location: ../homePages/techHome.php");
+if (isset($_SESSION["ValidTech"])) header("Location: ../homePages/techHome.php");
 
 elseif (! empty($_POST['Login'])) {
     $email = $_POST['email'];
