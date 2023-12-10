@@ -37,7 +37,8 @@ if ($email != null) { # enter if coming from login form
                 $first_name = $_SESSION['firstName'] = $line['firstName']; # save customer first name for display
                 $last_name = $_SESSION['lastName'] = $line['lastName']; # save customer last name for display
                 $id = $_SESSION['customerID'] = $line['customerID']; # save customer ID for later data entry
-                $_SESSION['Email'] = $email;}
+                $_SESSION['Email'] = $email;
+                $_SESSION['ValidCustomer'] = true;}
             else header("Location: registerProductLogin.php");}
         catch (Exception $e) {
             $error = 'Did not recognize customer email.'.$e; # message

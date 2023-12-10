@@ -13,26 +13,18 @@
 <main>
     <nav>
 
-        <h2>Administrators</h2>
+        <h2>Customer Menu</h2>
         <ul>
-            <li><a href="../product_manager/products.php">Manage Products</a></li>
-            <li><a href="../technicians/technician.php">Manage Technicians</a></li>
-            <li><a href="../customer_manager/selectCustomer.php">Manage Customers</a></li>
             <li><a href="../incident/createIncidentLogin.php">Create Incident</a></li>
-            <li><a href="../under_construction.php">Assign Incident</a></li>
-            <li><a href="../under_construction.php">Display Incidents</a></li>
-        </ul>
-
-        <h2>Technicians</h2>
-        <ul>
-            <li><a href="../under_construction.php">Update Incident</a></li>
-        </ul>
-
-        <h2>Customers</h2>
-        <ul>
             <li><a href="../product_manager/registerProductLogin.php">Register Product</a></li>
         </ul>
-
+        <?php
+        session_start();
+        if ($_SESSION['ValidCustomer'] = true && $_SESSION['Email'] != null) {
+            echo "<br><span>"."You are signed in as ".$_SESSION['Email']."</span>";
+            echo "<br><form action='../loginLogout/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
+        }
+        ?>
     </nav>
 </main>
 <?php include '../view/footer.php'; ?>

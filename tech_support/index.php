@@ -9,11 +9,21 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="icon" type="image/ico" href="images/favicon.ico">
 </head>
-<?php include 'view/header.php'; ?>
+<body>
+<header>
+    <h1>SportsPro Technical Support</h1>
+    <p>Sports management software for the sports enthusiast</p>
+</header>
+<?php
+session_start();
+if ($_SESSION['ValidTech']) header("Location: homePages/techHome.php");
+elseif ($_SESSION['ValidAdmin']) header("Location: homePages/adminHome.php");
+elseif ($_SESSION['ValidCustomer']) header("Location: homePages/customerHome.php");
+?>
 <main>
     <nav>
 
-    <h2>Administrators</h2>
+    <h2>Main Menu</h2>
     <ul>
         <li><a href="loginLogout/adminLogin.php">Administrators</a></li>
         <li><a href="loginLogout/technicianLogin.php">Technicians</a></li>
@@ -24,3 +34,5 @@
     </nav>
 </main>
 <?php include 'view/footer.php'; ?>
+</body>
+</html>
