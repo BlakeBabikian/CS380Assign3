@@ -12,10 +12,6 @@ try {
     //create PDO object
     $pdo = new PDO($dsn, $user, $password);
 
-    if ($pdo) {
-        echo "Connected to the $db database successfully!" . "\n";
-    }
-
 } catch (PDOException $e) {
     echo $e->getMessage(); exit();
 }
