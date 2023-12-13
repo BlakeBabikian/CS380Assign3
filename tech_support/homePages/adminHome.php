@@ -12,7 +12,23 @@
 <body>
 <?php include '../view/header.php'; ?>
 <main id="aligned">
-
+    <nav>
+        <h2>Admin menu</h2>
+        <ul>
+            <li><a href="../product_manager/products.php">Manage Products</a></li>
+            <li><a href="../technicians/technician.php">Manage Technicians</a></li>
+            <li><a href="../customer_manager/selectCustomer.php">Manage Customers</a></li>
+            <li><a href="../incident/displayIncident.php">Display Incidents</a></li>
+        </ul>
+        <?php
+        session_start();
+        if ($_SESSION['validAdmin'] = true && isset($_SESSION['username'])) {
+            echo "<br><span>"."You are signed in as ".$_SESSION['username']."</span>";
+            echo "<br><form action='../loginLogout/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
+        }
+        else header("Location: ../index.php");
+        ?>
+    </nav>
 </main>
 <?php include '../view/footer.php'; ?>
 </body>
