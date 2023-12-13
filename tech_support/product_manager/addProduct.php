@@ -54,7 +54,7 @@ if (sizeof($product_data) == 4) { # this is to prevent the sql from running if t
         <label for='version'>Version:</label>
         <input type='text' id='version' name='version'><br><br>
         <label for='release_date'>Release Date:</label>
-        <input type="text" id="rel_date" name="rel_date" maxlength="10" pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$" title="Use 'yyyy-mm-dd' format"><br><br>
+        <input type="date" id="rel_date" name="rel_date" maxlength="10" pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$" title="Use 'yyyy-mm-dd' format"><br><br>
         <input type='submit' value='Add Product' style="margin-left: 145px">
     </form>
 </main>
