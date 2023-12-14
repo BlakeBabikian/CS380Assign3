@@ -174,8 +174,7 @@ foreach ($_POST as $key => $value) { # key = input name # value = input value
 
 error_reporting(0);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-if (sizeof($customer_data) == 10) { # this is to prevent the sql from running if there is an empty field
+if (sizeof($customer_data) == 11) { # this is to prevent the sql from running if there is an empty field
     require '../model/database.php';
     try {
         $query = mysqli_prepare($con, "INSERT INTO customers 
