@@ -1,8 +1,8 @@
 <?php
 $host = 'webdev.bentley.edu';
-$db = 'bbabikian';
-$user = 'bbabikian';
-$password = '3726';
+$db = 'jbautista';
+$user = 'jbautista';
+$password = '6495';
 
 //connection string
 $dsn = "mysql:host=$host;dbname=$db;charset=UTF8";

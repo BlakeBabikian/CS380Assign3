@@ -21,12 +21,12 @@
                         // Keeps track of number of incidents
                         $n = 0;
                         $pdo = null;
-                        require '../model/database.php';
+                        require '../model/connect.php';
                         try {
 
 
                         //Might have to change database name
-                        $statement = "USE bbabikian;";
+                        $statement = "USE jbautista;";
                         $stmt = $pdo->query($statement);
 
                         // Perform SQL query to see what's in table
