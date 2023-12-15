@@ -183,25 +183,20 @@ if (sizeof($customer_data) == 11) { # this is to prevent the sql from running if
             $customer_data[5], $customer_data[6], $customer_data[7], $customer_data[8], $customer_data[9]);
         mysqli_stmt_execute($query);
         header("Location: selectCustomer.php");
+        $successMessage = "Customer information added successfully.";
+        echo "<p>$successMessage</p>";
     }
     catch(Exception $e) {
         $error = "Error: ".$e->getMessage();
-        header("Location: ../errors/database_error.php?error_message=$error");}
+        header("Location: ../errors/database_error.php?error_message=$error");
+        $successMessage = "Error updating customer information: " . mysqli_error($con);
+        echo "<p>$successMessage</p>";
+    }
     finally {
         mysqli_close($con);
         exit();
     }
 }
-
-// Check if the update was successful
-if (mysqli_affected_rows($con) > 0) {
-    $successMessage = "Customer information updated successfully.";
-} else {
-    $successMessage = "Error updating customer information: " . mysqli_error($con);
-}
-echo "<p>$successMessage</p>";
-
-
 ?>
 </body>
 </html>
