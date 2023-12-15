@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['ValidTech']) && isset($_SESSION['Email'])) header("Location: homePages/techHome.php");
+elseif (isset($_SESSION['ValidAdmin']) && isset($_SESSION['username'])) header("Location: homePages/adminHome.php");
+elseif (isset($_SESSION['ValidCustomer']) && isset($_SESSION['Email'])) header("Location: homePages/customerHome.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,16 +17,12 @@
     <link rel="icon" type="image/ico" href="images/favicon.ico">
 </head>
 <body>
+
 <header>
     <h1>SportsPro Technical Support</h1>
     <p>Sports management software for the sports enthusiast</p>
 </header>
-<?php
-session_start();
-if (isset($_SESSION['ValidTech']) && isset($_SESSION['Email'])) header("Location: homePages/techHome.php");
-elseif (isset($_SESSION['ValidAdmin']) && isset($_SESSION['username'])) header("Location: homePages/adminHome.php");
-elseif (isset($_SESSION['ValidCustomer']) && isset($_SESSION['Email'])) header("Location: homePages/customerHome.php");
-?>
+
 <main>
     <nav>
 
