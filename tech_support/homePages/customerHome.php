@@ -1,3 +1,10 @@
+<?php
+session_start();
+if ($_SESSION['ValidCustomer'] = true && isset($_SESSION['Email'])) {
+    echo "<br><span>"."You are signed in as ".$_SESSION['Email']."</span>";
+    echo "<br><form action='../loginLogout/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,14 +24,8 @@
         <ul>
             <li><a href="../incident/createIncidentLogin.php">Create Incident</a></li>
             <li><a href="../product_manager/registerProductLogin.php">Register Product</a></li>
+            <li><a href="../incident/displayIncident.php">Display Incident</a></li>
         </ul>
-        <?php
-        session_start();
-        if ($_SESSION['ValidCustomer'] = true && isset($_SESSION['Email'])) {
-            echo "<br><span>"."You are signed in as ".$_SESSION['Email']."</span>";
-            echo "<br><form action='../loginLogout/logout.php' method='post'><input type='submit' value='Log Out' name='LogOut'></form>";
-        }
-        ?>
     </nav>
 </main>
 <?php include '../view/footer.php'; ?>

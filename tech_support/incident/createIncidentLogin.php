@@ -1,3 +1,7 @@
+<?php
+session_start();
+if (! empty($_SESSION["Email"])) header("Location: createIncident.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +15,6 @@
 </head>
 <body>
 <?php include '../view/header.php'; ?>
-<?php
-    session_start();
-    if (! empty($_SESSION["Email"])) header("Location: createIncident.php");
-?>
 <main id="aligned">
     <h1>Get Customer</h1>
     <p>You must enter the customer's full email address to select the customer.</p>
